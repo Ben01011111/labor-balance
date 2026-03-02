@@ -1,0 +1,244 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ── CSS Variables ── */
+:root {
+  --bg:      #0a0c10;
+  --surf:    #12151c;
+  --card:    #181c26;
+  --card2:   #1e2330;
+  --border:  #252a38;
+  --border2: #2e3448;
+  --gold:    #f5c842;
+  --green:   #2ecc8a;
+  --blue:    #4a9eff;
+  --red:     #ff5f5f;
+  --purple:  #a78bfa;
+  --text:    #f0f2f8;
+  --muted:   #606880;
+  --muted2:  #8890a8;
+  --r:       14px;
+}
+
+/* ── Reset ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Outfit', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── App shell ── */
+#app {
+  width: 100%;
+  max-width: 430px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+#app::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  max-width: 430px;
+  left: 50%;
+  transform: translateX(-50%);
+  background:
+    radial-gradient(ellipse 200px 300px at 50% -40px, rgba(245,200,66,0.06), transparent),
+    radial-gradient(ellipse 160px 200px at 80% 60%,   rgba(46,204,138,0.04), transparent);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Page scroll area ── */
+.page {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 88px;
+  min-height: 100vh;   /* ← add this */
+}
+
+/* ── Shared card styles ── */
+.stat-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 14px 16px;
+}
+.sc-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 5px;
+}
+.sc-val { font-family: 'JetBrains Mono', monospace; font-size: 20px; }
+.sc-val.g { color: var(--green); }
+.sc-val.r { color: var(--red);   }
+.sc-val.b { color: var(--blue);  }
+.sc-prefix { font-size: 11px; color: var(--muted); margin-right: 2px; }
+
+/* ── Section header ── */
+.section     { padding: 0 18px 20px; }
+.sec-hd      { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.sec-title   { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted2); }
+.sec-action  { font-size: 11px; font-weight: 600; color: var(--gold); cursor: pointer; padding: 4px 0; }
+
+/* ── Staff cards ── */
+.staff-list  { display: flex; flex-direction: column; gap: 8px; }
+.staff-card  { background: var(--card); border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; transition: border-color .15s; }
+.staff-card.expanded { border-color: var(--border2); }
+.staff-header { display: flex; align-items: center; gap: 12px; padding: 14px 16px; cursor: pointer; }
+.staff-avatar {
+  width: 38px; height: 38px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 700; flex-shrink: 0;
+}
+.av0 { background: rgba(245,200,66,.15); color: var(--gold);   }
+.av1 { background: rgba(46,204,138,.15); color: var(--green);  }
+.av2 { background: rgba(74,158,255,.15); color: var(--blue);   }
+.av3 { background: rgba(167,139,250,.15);color: var(--purple); }
+.staff-name-row { flex: 1; }
+.staff-name  { font-size: 15px; font-weight: 700; }
+.staff-role  { font-size: 11px; color: var(--muted2); margin-top: 1px; }
+.sbc         { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; padding: 5px 10px; border-radius: 8px; }
+.sbc.pos     { background: rgba(46,204,138,.12); color: var(--green);  }
+.sbc.neg     { background: rgba(255,95,95,.12);  color: var(--red);    }
+.sbc.zero    { background: var(--card2);         color: var(--muted2); }
+.chevron     { font-size: 11px; color: var(--muted); margin-left: 4px; transition: transform .2s; }
+.chevron.open{ transform: rotate(180deg); }
+.staff-detail { padding: 0 16px 14px; border-top: 1px solid var(--border); }
+.staff-stat-row { display: flex; gap: 8px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+.ss-item  { flex: 1; text-align: center; }
+.ss-val   { font-family: 'JetBrains Mono', monospace; font-size: 14px; }
+.ss-label { font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-top: 3px; }
+.staff-actions { display: flex; gap: 8px; padding-top: 12px; }
+.sa-btn   { flex: 1; padding: 9px; border-radius: 9px; border: none; font-family: 'Outfit', sans-serif; font-size: 12px; font-weight: 700; cursor: pointer; transition: transform .1s; }
+.sa-btn:active { transform: scale(0.95); }
+.sa-btn.log  { background: var(--gold);  color: #0a0c10; }
+.sa-btn.pay  { background: var(--green); color: #0a0c10; }
+.sa-btn.hist { background: var(--card2); color: var(--muted2); border: 1px solid var(--border); }
+
+/* ── Entry list (Log tab) ── */
+.entry-list  { display: flex; flex-direction: column; gap: 8px; }
+.entry-item  {
+  background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+  padding: 13px 15px; display: flex; align-items: center; gap: 11px;
+  animation: fadeUp .2s ease;
+}
+@keyframes fadeUp { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+.ei-dot     { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+.ei-dot.job { background: var(--gold);  }
+.ei-dot.payment { background: var(--green); }
+.ei-info    { flex: 1; min-width: 0; }
+.ei-top     { display: flex; align-items: center; gap: 6px; }
+.ei-name    { font-size: 13px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 120px; }
+.ei-badge   { font-size: 9px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; padding: 2px 7px; border-radius: 5px; }
+.ei-badge.wash     { background: rgba(74,158,255,.15);  color: var(--blue);   }
+.ei-badge.interior { background: rgba(167,139,250,.15); color: var(--purple); }
+.ei-badge.detail   { background: rgba(245,200,66,.15);  color: var(--gold);   }
+.ei-badge.payment  { background: rgba(46,204,138,.15);  color: var(--green);  }
+.ei-date    { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); margin-top: 3px; }
+.ei-amount  { font-family: 'JetBrains Mono', monospace; font-size: 15px; font-weight: 500; flex-shrink: 0; }
+.ei-amount.job     { color: var(--gold);  }
+.ei-amount.payment { color: var(--green); }
+.ei-del     { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 14px; padding: 4px 4px 4px 8px; }
+
+/* ── Empty state ── */
+.empty      { text-align: center; padding: 36px 20px; color: var(--muted); }
+.empty-icon { font-size: 36px; opacity: .35; margin-bottom: 8px; }
+.empty-text { font-size: 13px; }
+
+/* ── Modal overlay ── */
+.overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,.75);
+  z-index: 200; display: flex; align-items: flex-end;
+  backdrop-filter: blur(5px);
+}
+.modal {
+  background: var(--surf); border: 1px solid var(--border2);
+  border-radius: 22px 22px 0 0;
+  padding: 20px 18px 36px;
+  width: 100%; max-width: 430px; margin: 0 auto;
+  animation: slideUp .25s cubic-bezier(.32,.72,0,1);
+  max-height: 90vh; overflow-y: auto;
+}
+@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+.modal-handle { width: 36px; height: 4px; border-radius: 2px; background: var(--border2); margin: 0 auto 18px; }
+.modal-title  { font-size: 19px; font-weight: 800; margin-bottom: 18px; }
+.modal-title em { font-style: normal; }
+.modal-title.job  em { color: var(--gold);  }
+.modal-title.pay  em { color: var(--green); }
+.modal-title.staff em{ color: var(--blue);  }
+
+/* ── Form elements ── */
+.fg { margin-bottom: 14px; }
+.fl { font-size: 10px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; color: var(--muted2); margin-bottom: 7px; display: block; }
+.fi {
+  width: 100%; background: var(--card); border: 1px solid var(--border2);
+  border-radius: 10px; padding: 13px 14px;
+  font-family: 'JetBrains Mono', monospace; font-size: 15px; color: var(--text);
+  outline: none; transition: border-color .15s; -webkit-appearance: none;
+}
+.fi:focus       { border-color: var(--gold);  }
+.fi.pay:focus   { border-color: var(--green); }
+.fi.staff:focus { border-color: var(--blue);  }
+select.fi { cursor: pointer; font-family: 'Outfit', sans-serif; }
+
+.job-types { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+.jt-btn {
+  padding: 12px 8px; border-radius: 10px; border: 1px solid var(--border2);
+  background: var(--card); color: var(--muted2);
+  font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 600;
+  cursor: pointer; text-align: center; transition: all .15s;
+}
+.jt-btn.sel { border-color: var(--gold); background: rgba(245,200,66,.1); color: var(--gold); }
+
+.staff-select-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+.staff-sel-btn {
+  padding: 11px 8px; border-radius: 10px; border: 1px solid var(--border2);
+  background: var(--card); color: var(--muted2);
+  font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 600;
+  cursor: pointer; text-align: center; transition: all .15s;
+}
+.staff-sel-btn.sel-job { border-color: var(--gold);  background: rgba(245,200,66,.1);  color: var(--gold);  }
+.staff-sel-btn.sel-pay { border-color: var(--green); background: rgba(46,204,138,.1);  color: var(--green); }
+
+.rate-display {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 10px; padding: 12px 14px; margin-bottom: 14px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.rd-label { font-size: 12px; color: var(--muted2); }
+.rd-val   { font-family: 'JetBrains Mono', monospace; font-size: 16px; color: var(--gold); }
+
+.submit-btn {
+  width: 100%; padding: 15px; border-radius: 12px; border: none;
+  font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 800;
+  cursor: pointer; margin-top: 6px; transition: transform .1s;
+}
+.submit-btn:active  { transform: scale(.97); }
+.submit-btn.job   { background: var(--gold);  color: #0a0c10; }
+.submit-btn.pay   { background: var(--green); color: #0a0c10; }
+.submit-btn.staff { background: var(--blue);  color: #0a0c10; }
+
+.cancel-btn {
+  width: 100%; padding: 13px; border-radius: 12px;
+  border: 1px solid var(--border2); background: transparent;
+  color: var(--muted2); font-family: 'Outfit', sans-serif;
+  font-size: 14px; font-weight: 600; cursor: pointer; margin-top: 8px;
+}
+
+.err { color: var(--red); font-size: 11px; font-family: 'JetBrains Mono', monospace; margin-top: 5px; }
