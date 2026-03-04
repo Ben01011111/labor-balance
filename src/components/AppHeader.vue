@@ -5,7 +5,6 @@
         <div class="app-name">Labor <em>Balance</em></div>
         <div class="header-date">{{ todayStr }}</div>
       </div>
-      <div style="font-size:22px">🚗</div>
     </div>
 
     <!-- Tab switcher -->
