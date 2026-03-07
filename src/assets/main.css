@@ -52,9 +52,6 @@ html, body {
   max-width: 430px;
   left: 50%;
   transform: translateX(-50%);
-  background:
-    radial-gradient(ellipse 200px 300px at 50% -40px, rgba(245,200,66,0.06), transparent),
-    radial-gradient(ellipse 160px 200px at 80% 60%,   rgba(46,204,138,0.04), transparent);
   pointer-events: none;
   z-index: 0;
 }
