@@ -25,9 +25,7 @@
       <div class="fg">
         <label class="fl">Job Type</label>
         <div class="job-types">
-          <button class="jt-btn" :class="{ sel: form.jobType === 'wash' }"     @click="form.jobType = 'wash'">🚿 Full Wash</button>
-          <button class="jt-btn" :class="{ sel: form.jobType === 'interior' }" @click="form.jobType = 'interior'">🪑 Interior</button>
-          <button class="jt-btn" :class="{ sel: form.jobType === 'detail' }"   @click="form.jobType = 'detail'" style="grid-column:1/-1">✨ Full Detail</button>
+          <button class="jt-btn" :class="{ sel: form.jobType === 'wash' }"     @click="form.jobType = 'wash'"> Full Wash </button>
         </div>
         <div class="err" v-if="errors.type">{{ errors.type }}</div>
       </div>

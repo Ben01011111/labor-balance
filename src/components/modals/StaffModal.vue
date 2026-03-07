@@ -14,8 +14,6 @@
         <label class="fl">Role</label>
         <select class="fi staff" v-model="form.role">
           <option value="">Select role...</option>
-          <option value="Washer">Washer</option>
-          <option value="Detailer">Detailer</option>
           <option value="Washer & Detailer">Washer & Detailer</option>
         </select>
       </div>
