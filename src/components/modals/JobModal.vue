@@ -25,7 +25,7 @@
       <div class="fg">
         <label class="fl">Job Type</label>
         <div class="job-types">
-          <button class="jt-btn" :class="{ sel: form.jobType === 'wash' }"     @click="form.jobType = 'wash'"> Full Wash </button>
+          <button class="jt-btn" :class="{ sel: form.jobType === 'Full Wash' }"     @click="form.jobType = 'Full Wash'"> Full Wash </button>
         </div>
         <div class="err" v-if="errors.type">{{ errors.type }}</div>
       </div>
