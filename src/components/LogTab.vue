@@ -63,7 +63,7 @@
       </div>
 
       <button class="submit-btn job" @click="downloadPDF" :disabled="pdfPreviewCount === 0">
-        ⬇ Download PDF
+        Download PDF
       </button>
       <button class="cancel-btn" @click="showPdfModal = false">Cancel</button>
     </div>
