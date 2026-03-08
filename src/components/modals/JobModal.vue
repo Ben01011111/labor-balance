@@ -2,7 +2,7 @@
   <div class="overlay" @click.self="$emit('close')">
     <div class="modal">
       <div class="modal-handle"></div>
-      <div class="modal-title job">🔨 Log <em>Job</em></div>
+      <div class="modal-title job"> Log <em>Job</em></div>
 
       <div class="fg">
         <label class="fl">Date</label>
